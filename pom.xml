@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>leetcode</module>
     </modules>
 
     <properties>
@@ -95,7 +96,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>3.0.2</version>
                 <configuration>
-                    <fork>true</fork>
                     <addResources>true</addResources>
                 </configuration>
             </plugin>
