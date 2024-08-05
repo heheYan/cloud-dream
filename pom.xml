@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>uu.babylove</groupId>
+    <groupId>com.hedit</groupId>
     <artifactId>cloud-dream</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
@@ -11,13 +11,15 @@
 
     <modules>
         <module>leetcode</module>
+        <module>ace-center</module>
+        <module>dream-common</module>
     </modules>
 
     <properties>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lombok.version>1.18.30</lombok.version>
-        <mysql.version>8.0.27</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <druid.version>1.1.16</druid.version>
         <hutool.version>5.8.28</hutool.version>
         <mybatis.spring.boot.version>3.0.2</mybatis.spring.boot.version>
@@ -73,11 +75,6 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis.plus.spring.boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis.spring.boot.version}</version>
             </dependency>
             <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
             <dependency>

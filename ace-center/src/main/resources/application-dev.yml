@@ -1,0 +1,133 @@
+spring:
+  config:
+    import:
+      - optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}
+  cloud:
+    nacos:
+      # nacos用户名
+      username: nacos
+      # nacos用户密码
+      password: nacos
+      # nacos服务器地址
+      server-addr: localhost:8848
+      # nacos配置中心相关
+      config:
+        # 开启nacos作为配置中心，默认值：true
+        enabled: true
+        # 作为配置中心的nacos服务器地址，默认值：${spring.cloud.nacos:server-addr}
+        server-addr: localhost:8848
+        # 配置文件读取的nacos命名空间ID，默认值：public
+        namespace: 8eb2a8cd-0326-4703-95c7-6886a9b33477
+        # 配置文件在nacos命名空间中的分组，默认值：DEFAULT_GROUP
+        # 配置文件的文件前缀（配置文件名称），默认值：${spring.application.name}
+        prefix: ${spring.application.name}
+        # 配置文件的文件后缀（文件类型），默认值：properties
+        file-extension: yaml
+        # 配置内容的编码方式，默认值：UTF-8
+        encode: UTF-8
+        # 获取配置的超时时间，单位：ms，默认值：3000
+        timeout: 3000
+        # 开启监听和自动刷新，动态感知配置变化，默认值：true
+        refresh-enabled: true
+        # 引入共享配置（同一分组）
+        shared-configs:
+          # 配置支持共享的 Data Id
+          - data-id: comm.yml
+            # 配置 Data Id 所在分组，缺省默认 DEFAULT_GROUP
+            group: DEFAULT_GROUP
+            # 配置Data Id 在配置变更时，是否动态刷新，缺省默认 false
+            refresh: true
+        # 引入扩展配置（同一分组或不同分组）
+        extension-configs:
+          # 配置支持共享的 Data Id
+          - data-id: comm.yml
+            # 配置 Data Id 所在分组，缺省默认 DEFAULT_GROUP
+            group: DEFAULT_GROUP
+            # 配置Data Id 在配置变更时，是否动态刷新，缺省默认 false
+            refresh: true
+      # nacos注册中心相关
+      discovery:
+        # 开启nacos作为服务注册中心，默认值：true
+        enabled: true
+        # 作为注册中心的nacos服务器地址，默认值：${spring.cloud.nacos:server-addr}
+        server-addr: localhost:8848
+        # 服务注册在nacso上的命名空间ID，默认值：public
+        namespace: 8eb2a8cd-0326-4703-95c7-6886a9b33477
+
+  # 数据库
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/db_framework?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
+    username: root
+    password: 123654
+    druid:
+      # 初始化时建立物理连接的个数
+      initial-size: 5
+      # 连接池的最小空闲数量
+      min-idle: 5
+      # 连接池最大连接数量
+      max-active: 20
+      # 获取连接时最大等待时间，单位毫秒
+      max-wait: 60000
+      # 申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+      test-while-idle: true
+      # 既作为检测的间隔时间又作为testWhileIdel执行的依据
+      time-between-eviction-runs-millis: 60000
+      # 销毁线程时检测当前连接的最后活动时间和当前时间差大于该值时，关闭当前连接(配置连接在池中的最小生存时间)
+      min-evictable-idle-time-millis: 30000
+      # 用来检测数据库连接是否有效的sql 必须是一个查询语句(oracle中为 select 1 from dual)
+      validation-query: select 'x'
+      # 申请连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true
+      test-on-borrow: false
+      # 归还连接时会执行validationQuery检测连接是否有效,开启会降低性能,默认为true
+      test-on-return: false
+      # 是否缓存preparedStatement, 也就是PSCache,PSCache对支持游标的数据库性能提升巨大，比如说oracle,在mysql下建议关闭。
+      pool-prepared-statements: false
+      # 置监控统计拦截的filters，去掉后监控界面sql无法统计，stat: 监控统计、Slf4j:日志记录、waLL: 防御sqL注入
+      filters: stat,wall,slf4j
+      # 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100
+      max-pool-prepared-statement-per-connection-size: -1
+      # 合并多个DruidDataSource的监控数据
+      use-global-data-source-stat: true
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+      web-stat-filter:
+        # 是否启用StatFilter默认值true
+        enabled: true
+        # 添加过滤规则
+        url-pattern: /*
+        # 忽略过滤的格式
+        exclusions: /druid/*,*.js,*.gif,*.jpg,*.png,*.css,*.ico
+
+  # redis
+  data:
+    redis:
+      url: redis://localhost:6379
+      database: 1
+      timeout: 10000
+      repositories:
+        enabled: false
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: 10000
+          max-idle: 8
+          min-idle: 0
+  # rabbitMQ
+  rabbitmq:
+    addresses: localhost:5672
+    username: guest
+    password: guest
+    virtual-host: /
+
+# 接口前缀
+hedit:
+  age: 20
+  config:
+    path-prefix: /api/v1
+  jwt:
+    secret: 65ae992b7fe9d536297f0527bd5f7966e95da2f1fd94db70019cd1baa6b7f84f
+    expire: 3600000
+    header: Authorization
