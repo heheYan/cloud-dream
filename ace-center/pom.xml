@@ -9,6 +9,8 @@
     </parent>
     <artifactId>ace-center</artifactId>
 
+    <packaging>jar</packaging>
+
     <dependencies>
         <dependency>
             <groupId>com.hedit</groupId>
