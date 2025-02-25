@@ -12,6 +12,8 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>core</module>
+        <module>user-service</module>
     </modules>
 
     <properties>
