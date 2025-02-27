@@ -1,29 +1,33 @@
 package com.yuan.cloud.core.dto.userservice;
 
-import lombok.Value;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import com.yuan.cloud.core.annotation.Idcard;
+import com.yuan.cloud.core.annotation.Mobile;
+import com.yuan.cloud.core.annotation.Password;
+import com.yuan.cloud.core.dto.AbstractBasicDTO;
+import jakarta.validation.constraints.Email;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * DTO for {@link com.yuan.cloud.userservice.entity.User}
  */
-@Value
-public class UserDTO implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class UserDTO extends AbstractBasicDTO {
     String username;
+    @Password
     String password;
     String nickName;
     String avatar;
     String realName;
+    @Idcard
     String identityNumber;
+    @Email
     String email;
+    @Mobile
     String mobile;
     Integer age;
     String gender;
     Integer locked;
     Integer disabled;
-    Long id;
-    LocalDateTime gmtCreate;
-    LocalDateTime gmtModified;
-    Boolean deleted;
 }

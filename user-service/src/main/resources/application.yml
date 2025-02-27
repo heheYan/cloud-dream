@@ -1,0 +1,9 @@
+server:
+  port: 8001
+
+spring:
+  # 多环境配置文件切换
+  profiles:
+    active: dev
+  application:
+    name: user-service

@@ -1,5 +1,7 @@
 package com.yuan.cloud.userservice.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.yuan.cloud.core.entity.AbstractBasicEntity;
 import lombok.Data;
@@ -67,10 +69,12 @@ public class User extends AbstractBasicEntity {
     /**
      * 是否锁定，0-否，1-是
      */
-    private Integer locked;
+    @TableField(value = "is_locked", fill = FieldFill.INSERT)
+    private Boolean locked;
 
     /**
      * 是否禁用，0-否，1-是
      */
-    private Integer disabled;
+    @TableField(value = "is_disabled", fill = FieldFill.INSERT)
+    private Boolean disabled;
 }

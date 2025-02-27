@@ -1,15 +1,15 @@
 package com.yuan.cloud.core.dto.userservice;
 
-import lombok.Value;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import com.yuan.cloud.core.dto.AbstractBasicDTO;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * DTO for {@link com.yuan.cloud.userservice.entity.Router}
  */
-@Value
-public class RouterDTO implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class RouterDTO extends AbstractBasicDTO {
     Long parentId;
     String name;
     String path;
@@ -19,8 +19,4 @@ public class RouterDTO implements Serializable {
     Integer cached;
     Integer disabled;
     Integer sortOrder;
-    Long id;
-    LocalDateTime gmtCreate;
-    LocalDateTime gmtModified;
-    Boolean deleted;
 }
