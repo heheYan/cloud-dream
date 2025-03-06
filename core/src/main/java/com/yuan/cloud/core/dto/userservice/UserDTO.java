@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Email;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 /**
  * DTO for {@link com.yuan.cloud.userservice.entity.User}
  */
@@ -30,4 +32,6 @@ public class UserDTO extends AbstractBasicDTO {
     String gender;
     Integer locked;
     Integer disabled;
+    /* 用户角色列表 */
+    List<Long> roleIds;
 }

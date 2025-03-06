@@ -16,5 +16,6 @@ public interface UserService extends IService<User> {
      * @param username 用户名
      * @return 用户信息
      */
-    User getUserByUsername(String username);
+    User findByUsername(String username);
+
 }
