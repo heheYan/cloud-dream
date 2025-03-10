@@ -1,5 +1,6 @@
 package com.yuan.cloud.core.util.query;
 
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.yuan.cloud.core.annotation.YuanQueryType;
 import com.yuan.cloud.core.enums.QueryTypeEnum;
@@ -7,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
+import java.util.Date;
 
 /**
  * @author Mr.Y
@@ -31,6 +33,11 @@ public class QueryBuilderUtil {
                 Object fieldValue = field.get(query);
                 if (fieldValue != null) {
                     switch (type) {
+                        case EQUAL -> {
+                            if (!fieldValue.toString().isEmpty()) {
+                                wrapper.eq(field.getName(), fieldValue.toString());
+                            }
+                        }
                         case LIKE -> {
                             if (!fieldValue.toString().isEmpty()) {
                                 wrapper.like(field.getName(), fieldValue.toString());
@@ -47,10 +54,9 @@ public class QueryBuilderUtil {
                         case LESS_THAN -> wrapper.lt(field.getName(), fieldValue);
                         case BETWEEN -> {
                             // 默认日期格式的between
-                            if (fieldValue instanceof Object[] fieldValues && fieldValues.length == 2) {
-                                wrapper.ge("date_format(" + field.getName() + ", '%Y-%m-%d')", fieldValues[0]);
-                                wrapper.le("date_format(" + field.getName() + ", '%Y-%m-%d')", fieldValues[1]);
-                                // wrapper.between(field.getName(), fieldValues[0], fieldValues[1]);
+                            if (fieldValue instanceof Date[] fieldValues && fieldValues.length == 2) {
+
+                                wrapper.between(field.getName(), DateUtil.beginOfDay(fieldValues[0]), DateUtil.endOfDay(fieldValues[1]));
                             } else {
                                 log.warn("Field {} annotated with BETWEEN but value is not a valid array of two elements", field.getName());
                             }

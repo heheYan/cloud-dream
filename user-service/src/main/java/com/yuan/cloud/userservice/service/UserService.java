@@ -1,6 +1,7 @@
 package com.yuan.cloud.userservice.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.yuan.cloud.core.dto.userservice.UserDTO;
 import com.yuan.cloud.userservice.entity.User;
 
 /**
@@ -16,6 +17,6 @@ public interface UserService extends IService<User> {
      * @param username 用户名
      * @return 用户信息
      */
-    User findByUsername(String username);
+    UserDTO findByUsername(String username);
 
 }

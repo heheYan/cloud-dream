@@ -25,7 +25,7 @@ public class Dict extends AbstractBasicEntity {
     private String remark;
 
     /**
-     * 排序字段
+     * 排序字段，数字越小优先级越高
      */
-    private Integer sortOrder;
+    private Integer sortOrder = 0;
 }

@@ -16,12 +16,14 @@ import lombok.Setter;
 @Setter
 public class RoleQuery extends BasicQuery {
     @YuanQueryType(type = QueryTypeEnum.LIKE)
+    @JsonProperty("roleName")
     private String role_name;
 
     @YuanQueryType(type = QueryTypeEnum.LIKE)
+    @JsonProperty("roleCode")
     private String role_code;
 
     @YuanQueryType(type = QueryTypeEnum.EQUAL)
     @JsonProperty("disabled")
-    private String is_disabled;
+    private Boolean is_disabled;
 }

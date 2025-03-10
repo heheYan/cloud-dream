@@ -7,6 +7,8 @@ import com.yuan.cloud.core.query.BasicQuery;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 /**
  * @author YuAN
  * Created on 2025-02-27 18:28
@@ -29,7 +31,7 @@ public class UserQuery extends BasicQuery {
     @JsonProperty("disabled")
     private Boolean is_disabled;
 
-    @JsonProperty("createTime")
+    @JsonProperty("createAt")
     @YuanQueryType(type = QueryTypeEnum.BETWEEN)
-    private String[] gmt_create;
+    private Date[] gmt_create;
 }

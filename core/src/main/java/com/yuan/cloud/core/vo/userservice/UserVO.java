@@ -1,16 +1,14 @@
-package com.yuan.cloud.core.vo;
+package com.yuan.cloud.core.vo.userservice;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.yuan.cloud.core.serializer.EmailSerializer;
 import com.yuan.cloud.core.serializer.IdCardSerializer;
 import com.yuan.cloud.core.serializer.MobileSerializer;
 import com.yuan.cloud.core.serializer.RealNameSerializer;
+import com.yuan.cloud.core.vo.AbstractBasicVO;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -18,13 +16,8 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class UserVO {
+public class UserVO extends AbstractBasicVO {
 
-    /**
-     * 主键转String
-     */
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long id;
     /*用户名*/
     private String username;
     /*昵称*/
@@ -60,14 +53,10 @@ public class UserVO {
     private String gender;
 
     private Boolean locked;
+
     private Boolean disabled;
 
     private List<RoleVO> roles;
 
 //    private List<PermissionVO> permissions;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime gmtCreate;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime gmtModified;
 }

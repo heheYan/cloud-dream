@@ -2,7 +2,7 @@ package com.yuan.cloud.userservice.controller;
 
 import com.yuan.cloud.core.controller.BasicController;
 import com.yuan.cloud.core.dto.userservice.RoleDTO;
-import com.yuan.cloud.core.vo.RoleVO;
+import com.yuan.cloud.core.vo.userservice.RoleVO;
 import com.yuan.cloud.userservice.entity.Role;
 import com.yuan.cloud.userservice.query.RoleQuery;
 import com.yuan.cloud.userservice.service.RoleService;

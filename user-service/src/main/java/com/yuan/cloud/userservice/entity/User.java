@@ -7,6 +7,8 @@ import com.yuan.cloud.core.entity.AbstractBasicEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 /**
  * 用户信息表
  *
@@ -77,4 +79,10 @@ public class User extends AbstractBasicEntity {
      */
     @TableField(value = "is_disabled", fill = FieldFill.INSERT)
     private Boolean disabled;
+
+    /**
+     * 角色列表
+     */
+    @TableField(exist = false)
+    List<Role> roles;
 }

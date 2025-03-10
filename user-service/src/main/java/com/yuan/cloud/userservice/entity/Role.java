@@ -7,6 +7,8 @@ import com.yuan.cloud.core.entity.AbstractBasicEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 /**
  * 角色信息表
  *
@@ -36,4 +38,10 @@ public class Role extends AbstractBasicEntity {
      */
     @TableField(value = "is_disabled", fill = FieldFill.INSERT)
     private Boolean disabled;
+
+    /**
+     * 权限列表
+     */
+    @TableField(exist = false)
+    List<Permission> permissions;
 }

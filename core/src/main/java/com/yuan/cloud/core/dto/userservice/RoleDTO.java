@@ -11,5 +11,7 @@ import lombok.EqualsAndHashCode;
 @Data
 public class RoleDTO extends AbstractBasicDTO {
     String roleName;
-    String description;
+    String roleCode;
+    String remark;
+    Integer disabled;
 }

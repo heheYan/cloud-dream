@@ -13,5 +13,5 @@ public class PermissionDTO extends AbstractBasicDTO {
     String permissionName;
     String permissionCode;
     String permissionType;
-    String description;
+    String remark;
 }

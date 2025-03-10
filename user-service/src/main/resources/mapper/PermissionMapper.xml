@@ -16,7 +16,8 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,permission_name,permission_code,
+        id
+        ,permission_name,permission_code,
         permission_type,remark,is_deleted,
         gmt_create,gmt_modified
     </sql>

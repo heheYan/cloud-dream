@@ -9,8 +9,8 @@ import com.yuan.cloud.core.controller.BasicController;
 import com.yuan.cloud.core.dto.userservice.UserDTO;
 import com.yuan.cloud.core.enums.YuanStatusEnum;
 import com.yuan.cloud.core.exception.YuanApiException;
-import com.yuan.cloud.core.vo.RoleVO;
-import com.yuan.cloud.core.vo.UserVO;
+import com.yuan.cloud.core.vo.userservice.RoleVO;
+import com.yuan.cloud.core.vo.userservice.UserVO;
 import com.yuan.cloud.userservice.entity.User;
 import com.yuan.cloud.userservice.entity.UserRole;
 import com.yuan.cloud.userservice.query.UserQuery;
@@ -76,11 +76,8 @@ public class UserController extends BasicController<UserService, User, UserDTO, 
      */
     @GetMapping("findByUsername/{username}")
     public UserDTO findByUsername(@PathVariable("username") String username) {
-        User user = basicService.findByUsername(username);
-        if (user == null) {
-            throw new YuanApiException(YuanStatusEnum.USER_NOT_FOUND);
-        }
-        return BeanUtil.copyProperties(user, UserDTO.class);
+
+        return basicService.findByUsername(username);
     }
 
     /**
@@ -99,11 +96,11 @@ public class UserController extends BasicController<UserService, User, UserDTO, 
         map.put("user_id", user.getId());
         userRoleService.removeByMap(map);
         // 添加新角色
-        if (CollUtil.isNotEmpty(dto.getRoleIds())) {
-            List<UserRole> userRoles = dto.getRoleIds().stream().map(roleId -> {
+        if (CollUtil.isNotEmpty(dto.getRoles())) {
+            List<UserRole> userRoles = dto.getRoles().stream().map(role -> {
                 UserRole userRole = new UserRole();
                 userRole.setUserId(dto.getId());
-                userRole.setRoleId(roleId);
+                userRole.setRoleId(role.getId());
                 return userRole;
             }).toList();
             userRoleService.saveOrUpdateBatch(userRoles);

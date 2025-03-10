@@ -1,9 +1,11 @@
 package com.yuan.cloud.core.dto.userservice;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yuan.cloud.core.annotation.Idcard;
 import com.yuan.cloud.core.annotation.Mobile;
 import com.yuan.cloud.core.annotation.Password;
 import com.yuan.cloud.core.dto.AbstractBasicDTO;
+import com.yuan.cloud.core.serializer.MobileSerializer;
 import jakarta.validation.constraints.Email;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,10 +24,14 @@ public class UserDTO extends AbstractBasicDTO {
     String nickName;
     String avatar;
     String realName;
+
     @Idcard
+    @JsonSerialize(using = MobileSerializer.class)
     String identityNumber;
+
     @Email
     String email;
+
     @Mobile
     String mobile;
     Integer age;
@@ -33,5 +39,5 @@ public class UserDTO extends AbstractBasicDTO {
     Integer locked;
     Integer disabled;
     /* 用户角色列表 */
-    List<Long> roleIds;
+    List<RoleDTO> roles;
 }
