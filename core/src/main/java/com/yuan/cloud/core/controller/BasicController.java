@@ -48,7 +48,7 @@ public abstract class BasicController<S extends IService<T>, T, D, V, Q extends 
             responses = {@ApiResponse(description = "对象", content = @Content(schema = @Schema(description = "实际的数据对象")))})
     @GetMapping("/{id}")
     public V findById(@NotNull @PathVariable("id") Long id) {
-        T t = basicService.getOptById(id).orElse(null);
+        T t = basicService.getOptById(id).orElseThrow(() -> new YuanApiException(YuanStatusEnum.DATA_NOT_EXIST));
         return BeanUtil.copyProperties(t, getVoClass());
     }
 

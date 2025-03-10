@@ -9,7 +9,7 @@
         <result property="permissionName" column="permission_name" jdbcType="VARCHAR"/>
         <result property="permissionCode" column="permission_code" jdbcType="VARCHAR"/>
         <result property="permissionType" column="permission_type" jdbcType="CHAR"/>
-        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
         <result property="deleted" column="is_deleted" jdbcType="TINYINT"/>
         <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
         <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
@@ -17,7 +17,7 @@
 
     <sql id="Base_Column_List">
         id,permission_name,permission_code,
-        permission_type,description,is_deleted,
+        permission_type,remark,is_deleted,
         gmt_create,gmt_modified
     </sql>
 </mapper>

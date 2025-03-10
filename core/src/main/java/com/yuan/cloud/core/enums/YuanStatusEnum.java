@@ -20,6 +20,7 @@ public enum YuanStatusEnum {
     FILE_REMOVE_FAIL(40008, "文件删除失败"),
     QUERY_CONDITION_ERROR(40009, "查询条件拼接失败"),
     VERIFICATION_CODE_ERROR(40010, "验证码无效"),
+    DATA_NOT_EXIST(40011, "未查询到相关数据"),
     USER_EXIST_ERROR(40011, "用户名已存在"),
 
     UNAUTHORIZED(401, "未授权"),

@@ -32,5 +32,5 @@ public class Permission extends AbstractBasicEntity {
     /**
      * 权限描述
      */
-    private String description;
+    private String remark;
 }

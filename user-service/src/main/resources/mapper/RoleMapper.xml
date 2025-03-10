@@ -5,16 +5,18 @@
 <mapper namespace="com.yuan.cloud.userservice.mapper.RoleMapper">
 
     <resultMap id="BaseResultMap" type="com.yuan.cloud.userservice.entity.Role">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
-            <result property="description" column="description" jdbcType="VARCHAR"/>
-            <result property="deleted" column="is_deleted" jdbcType="TINYINT"/>
-            <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
-            <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+        <result property="roleCode" column="role_code" jdbcType="VARCHAR"/>
+        <result property="remaek" column="remark" jdbcType="VARCHAR"/>
+        <result property="disabled" column="is_disabled" jdbcType="TINYINT"/>
+        <result property="deleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,role_name,description,
+        id,role_name,role_code,remark,is_disabled,
         is_deleted,gmt_create,gmt_modified
     </sql>
 </mapper>
