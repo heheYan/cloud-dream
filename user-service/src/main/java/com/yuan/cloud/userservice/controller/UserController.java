@@ -6,9 +6,11 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.yuan.cloud.core.controller.BasicController;
+import com.yuan.cloud.core.dto.userservice.LoginDTO;
 import com.yuan.cloud.core.dto.userservice.UserDTO;
 import com.yuan.cloud.core.enums.YuanStatusEnum;
 import com.yuan.cloud.core.exception.YuanApiException;
+import com.yuan.cloud.core.vo.userservice.LoginResultVO;
 import com.yuan.cloud.core.vo.userservice.RoleVO;
 import com.yuan.cloud.core.vo.userservice.UserVO;
 import com.yuan.cloud.userservice.entity.User;
@@ -39,6 +41,12 @@ public class UserController extends BasicController<UserService, User, UserDTO, 
         this.roleService = roleService;
     }
 
+    /**
+     * 根据id查询用户信息，重写父方法，添加角色信息查询
+     *
+     * @param id 主键
+     * @return
+     */
     @Override
     @GetMapping("/{id}")
     public UserVO findById(@PathVariable("id") Long id) {
@@ -106,6 +114,24 @@ public class UserController extends BasicController<UserService, User, UserDTO, 
             userRoleService.saveOrUpdateBatch(userRoles);
         }
         return BeanUtil.copyProperties(user, UserVO.class);
+    }
+
+    /**
+     * 用户登录
+     *
+     * @param dto
+     * @return
+     */
+    @PostMapping("login")
+    public LoginResultVO login(@Validated @RequestBody LoginDTO dto) {
+        UserDTO user = basicService.findByUsername(dto.getUsername());
+        if (user == null) {
+            throw new YuanApiException(YuanStatusEnum.USER_NOT_FOUND);
+        }
+        if (!DigestUtil.bcryptCheck(dto.getPassword(), user.getPassword())) {
+            throw new YuanApiException(YuanStatusEnum.PASSWORD_ERROR);
+        }
+        return LoginResultVO.success("123", "123", "123");
     }
 
     @Override
