@@ -9,6 +9,5 @@ import lombok.Setter;
 public class PermissionVO extends AbstractBasicVO {
     String permissionName;
     String permissionCode;
-    String permissionType;
     String remark;
 }

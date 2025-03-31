@@ -25,11 +25,6 @@ public class Permission extends AbstractBasicEntity {
     private String permissionCode;
 
     /**
-     * 权限类型，代码项【权限类型】
-     */
-    private String permissionType;
-
-    /**
      * 权限描述
      */
     private String remark;

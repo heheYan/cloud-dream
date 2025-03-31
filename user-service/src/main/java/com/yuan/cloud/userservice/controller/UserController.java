@@ -1,20 +1,18 @@
 package com.yuan.cloud.userservice.controller;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.yuan.cloud.core.controller.BasicController;
 import com.yuan.cloud.core.dto.userservice.LoginDTO;
 import com.yuan.cloud.core.dto.userservice.UserDTO;
 import com.yuan.cloud.core.enums.YuanStatusEnum;
 import com.yuan.cloud.core.exception.YuanApiException;
+import com.yuan.cloud.core.response.YuanR;
 import com.yuan.cloud.core.vo.userservice.LoginResultVO;
 import com.yuan.cloud.core.vo.userservice.RoleVO;
 import com.yuan.cloud.core.vo.userservice.UserVO;
 import com.yuan.cloud.userservice.entity.User;
-import com.yuan.cloud.userservice.entity.UserRole;
 import com.yuan.cloud.userservice.query.UserQuery;
 import com.yuan.cloud.userservice.service.RoleService;
 import com.yuan.cloud.userservice.service.UserRoleService;
@@ -22,8 +20,6 @@ import com.yuan.cloud.userservice.service.UserService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -51,14 +47,8 @@ public class UserController extends BasicController<UserService, User, UserDTO, 
     @GetMapping("/{id}")
     public UserVO findById(@PathVariable("id") Long id) {
         UserVO userVO = super.findById(id);
-        List<RoleVO> roleVOS = new ArrayList<>();
         // 查询用户角色
-        List<UserRole> userRoles = userRoleService.list(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, id));
-        if (CollUtil.isNotEmpty(userRoles)) {
-            List<Long> roleIds = userRoles.stream().map(UserRole::getRoleId).toList();
-            roleVOS = BeanUtil.copyToList(roleService.listByIds(roleIds), RoleVO.class);
-        }
-        userVO.setRoles(roleVOS);
+        userVO.setRoles(BeanUtil.copyToList(userRoleService.findByUserId(id), RoleVO.class));
         return userVO;
     }
 
@@ -94,26 +84,14 @@ public class UserController extends BasicController<UserService, User, UserDTO, 
      * @return
      */
     @PostMapping("bindRole")
-    public UserVO bindRole(@RequestBody UserDTO dto) {
+    public YuanR<List<Long>> bindRole(@RequestBody UserDTO dto) {
         User user = basicService.getById(dto.getId());
         if (user == null) {
             throw new YuanApiException(YuanStatusEnum.USER_NOT_FOUND);
         }
-        // 删除用户角色
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("user_id", user.getId());
-        userRoleService.removeByMap(map);
-        // 添加新角色
-        if (CollUtil.isNotEmpty(dto.getRoles())) {
-            List<UserRole> userRoles = dto.getRoles().stream().map(role -> {
-                UserRole userRole = new UserRole();
-                userRole.setUserId(dto.getId());
-                userRole.setRoleId(role.getId());
-                return userRole;
-            }).toList();
-            userRoleService.saveOrUpdateBatch(userRoles);
-        }
-        return BeanUtil.copyProperties(user, UserVO.class);
+        // 绑定用户角色
+        userRoleService.bindRole(dto);
+        return YuanR.ok(dto.getRoleIds());
     }
 
     /**

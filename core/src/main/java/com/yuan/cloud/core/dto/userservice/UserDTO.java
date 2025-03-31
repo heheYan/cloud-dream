@@ -40,4 +40,5 @@ public class UserDTO extends AbstractBasicDTO {
     Integer disabled;
     /* 用户角色列表 */
     List<RoleDTO> roles;
+    List<Long> roleIds;
 }

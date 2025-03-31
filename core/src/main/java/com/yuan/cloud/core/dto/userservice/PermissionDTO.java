@@ -12,6 +12,5 @@ import lombok.EqualsAndHashCode;
 public class PermissionDTO extends AbstractBasicDTO {
     String permissionName;
     String permissionCode;
-    String permissionType;
     String remark;
 }
